@@ -10,10 +10,17 @@ config-version: 2
 profile: 'default'
 
 
+# vars:
+#    target_db: GLUEDB
+#    target_schema: PUBLIC
+#    stage_name: GLUEDB.PUBLIC.GLUE_S3_STAGE
+
 vars:
-   target_db: GLUEDB
-   target_schema: PUBLIC
-   stage_name: GLUEDB.PUBLIC.GLUE_S3_STAGE
+   wrk_schema: BRONZE
+   file_format_json: SCD2_DB.BRONZE.MY_CSV_FORMAT
+   purge_status: FALSE
+   stage_name: SCD2_DB.BRONZE.SCD2_STAGE
+   rawhist_db: SCD2_DB
 
 # These configurations specify where dbt should look for different types of files.
 # The `model-paths` config, for example, states that models in this project can be
@@ -41,8 +48,18 @@ clean-targets:         # directories to be removed by `dbt clean`
 # continue to be built as views. These settings can be overridden in the individual model files
 # using the `{{ config(...) }}` macro.
 
+# models:
+#   my_new_project:
+#     # Applies to all files under models/example/
+#     example:
+#       +materialized: table
+
 models:
-  my_new_project:
-    # Applies to all files under models/example/
-    example:
-      +materialized: table
+
+  dbt-scd2-project:
+    silver:
+          schema: silver
+          materialized: table
+    gold:
+          schema: gold
+          materialized: view
