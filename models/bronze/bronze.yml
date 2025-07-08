@@ -1,0 +1,26 @@
+version : 2
+
+models:
+  - name: department
+    description: "DBT model for department"
+  - name: stores
+    description: "DBT model for department"
+
+sources:
+  - name: department
+    database: WALMART_BI_DB
+    schema: PUBLIC
+    tables:
+      - name: DEPARTMENT_SRC
+  - name: store
+    database: WALMART_BI_DB
+    schema: PUBLIC
+    tables:
+      - name: STORE_SRC
+  - name: fact
+    database: WALMART_BI_DB
+    schema: PUBLIC
+    tables:
+      - name: FACT_SRC
+
+

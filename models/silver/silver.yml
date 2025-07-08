@@ -1,0 +1,77 @@
+version : 2
+
+models:
+  - name: transformed_store_dim
+    description: "DBT model store dimension table"
+    columns:
+      - name: store_dept_id
+        description: "store dept Indentification"
+        tests:
+          - not_null
+          - unique
+      - name: store_id
+        description: "Store Indentification"
+        tests:
+          - not_null
+   
+      - name: dept_id
+        description: "Store Indentification"
+        tests:
+          - not_null
+
+      - name: store_type
+        description: "Store Type"
+        tests:
+          - not_null
+      - name: store_size
+        description: "Store Size"
+        tests:
+          - not_null
+  - name: transformed_date_dim
+    description: "DBT model date dimension table"
+    columns:
+      - name: Date_Id
+        description: "Date Unique Indentification"
+        tests:
+          - not_null
+          - unique
+      - name: Date
+        description: "Date"
+        tests:
+          - not_null
+      - name: IsHoliday
+        description: "Is Holiday or Not "
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['false','true']
+              config:
+                severity: warn
+        
+
+sources:
+  - name: department
+    database: WALMART_BI_DB
+    schema: BRONZE
+    tables:
+      - name: DEPARTMENT
+  - name: stores
+    database: WALMART_BI_DB
+    schema: BRONZE
+    tables:
+      - name: STORES
+  - name: fact
+    database: WALMART_BI_DB
+    schema: BRONZE
+    tables:
+      - name: FACT
+  - name: store_dim
+    database: WALMART_BI_DB
+    schema: SILVER
+    tables:
+      - name: TRANSFORMED_STORE_DIM
+  - name: date_dim
+    database: WALMART_BI_DB
+    schema: SILVER
+    tables:
+      - name: TRANSFORMED_DATE_DIM

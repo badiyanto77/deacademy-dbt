@@ -11,9 +11,9 @@ profile: 'default'
 
 
 vars:
-   target_db: GLUEDB
-   target_schema: PUBLIC
-   stage_name: GLUEDB.PUBLIC.GLUE_S3_STAGE
+   target_db: WALMART_BI_DB
+   target_schema: BRONZE
+   stage_name: WALMART_BI_DB.BRONZE.WALMART_S3_STAGE
 
 # These configurations specify where dbt should look for different types of files.
 # The `model-paths` config, for example, states that models in this project can be
@@ -44,5 +44,9 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   my_new_project:
     # Applies to all files under models/example/
-    example:
+    bronze:
+      +materialized: table
+    silver:
+      +materialized: table
+    gold:
       +materialized: table
