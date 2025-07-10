@@ -10,9 +10,10 @@
             SELECT 
                 $1 Store,
                 $2 Dept,
-                $3 Date,
+                CAST($3 AS DATE) as DATE,
                 $4 WeeklySales,
-                $5 IsHoliday
+                $5 IsHoliday,
+                CURRENT_TIMESTAMP CreatedAt
             FROM  @{{ var('stage_name') }}
             (
                 FILE_FORMAT => 'MY_CSV_FORMAT', -- Replace with your file format name
@@ -35,7 +36,8 @@
             SELECT 
                  $1 Store,
                  $2 Type,
-                 $3 Size
+                 $3 Size,
+                 CURRENT_TIMESTAMP CreatedAt
             FROM  @{{ var('stage_name') }}
             (
                 FILE_FORMAT => 'MY_CSV_FORMAT', -- Replace with your file format name
@@ -66,7 +68,8 @@
                 $9 MarkDown5,
                 $10 CPI,
                 $11 Unemployment,
-                $12 IsHoliday
+                $12 IsHoliday,
+                CURRENT_TIMESTAMP CreatedAt
                 FROM  @{{ var('stage_name') }}
                 (
                     FILE_FORMAT => 'MY_CSV_FORMAT', -- Replace with your file format name

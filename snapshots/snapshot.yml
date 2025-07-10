@@ -1,0 +1,58 @@
+version : 2
+
+models:
+  - name: transformed_fact_table
+    description: "DBT model store dimension table"
+    columns:
+      - name: store_dept_id
+        description: "store dept Indentification"
+        tests:
+          - not_null
+          - unique
+      - name: store_id
+        description: "Store Indentification"
+        tests:
+          - not_null
+   
+      - name: dept_id
+        description: "Store Indentification"
+        tests:
+          - not_null
+
+      - name: store_type
+        description: "Store Type"
+        tests:
+          - not_null
+      - name: store_size
+        description: "Store Size"
+        tests:
+          - not_null
+
+        
+
+sources:
+  - name: dept_src
+    database: WALMART_BI_DB
+    schema: BRONZE
+    tables:
+      - name: DEPARTMENT
+  - name: stores_src
+    database: WALMART_BI_DB
+    schema: BRONZE
+    tables:
+      - name: STORES
+  - name: fact_src
+    database: WALMART_BI_DB
+    schema: BRONZE
+    tables:
+      - name: FACT
+  - name: store_dim_src
+    database: WALMART_BI_DB
+    schema: SILVER
+    tables:
+      - name: TRANSFORMED_STORE_DIM
+  - name: date_dim_src
+    database: WALMART_BI_DB
+    schema: SILVER
+    tables:
+      - name: TRANSFORMED_DATE_DIM

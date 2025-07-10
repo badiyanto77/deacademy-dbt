@@ -15,7 +15,7 @@ with store_dim as
          CAST(dept_id as INTEGER) as dept_id,
          CAST(store_type AS CHAR) as store_type,
          CAST(store_size as INTEGER) as store_size
-    FROM {{source('walmart_store_dim','TRANSFORMED_STORE_DIM')}}
+    FROM {{ref('transformed_store_dim')}}
 )
 select * from store_dim
 
